@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offerte aanvragen | MKB-kleding.nl</title>
+  <meta name="description" content="Vraag gratis een offerte aan voor bedrijfskleding met jouw logo. Persoonlijk advies, binnen 1 werkdag reactie. Geen minimale afname.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="nav" aria-label="Hoofdnavigatie">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo"><span class="mkb">mkb</span><span class="rest">kleding.nl</span></a>
+    <button class="nav-toggle" aria-label="Menu openen" aria-expanded="false" aria-controls="navLinks">
+      <i class="fa-solid fa-bars" aria-hidden="true"></i>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="producten.html">Diensten</a></li>
+      <li><a href="index.html#werkwijze">Hoe het werkt</a></li>
+      <li><a href="index.html#waarom">Waarom wij</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="over-ons.html">Over ons</a></li>
+      <li><a href="offerte.html" class="btn btn-primary btn-small">Offerte aanvragen</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <h1>Vraag een gratis offerte aan</h1>
+    <p>Vul het formulier in en je ontvangt binnen 1 werkdag een persoonlijk voorstel op maat.</p>
+  </div>
+</section>
+
+<section class="offerte-sectie">
+  <div class="container">
+    <div class="form-card" style="max-width:680px;margin:0 auto">
+
+      <div id="formSucces" class="form-succes" hidden>
+        <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+        <h3>Bedankt voor je aanvraag!</h3>
+        <p>We nemen binnen 1 werkdag contact met je op met een persoonlijk voorstel.</p>
+      </div>
+
+      <form id="offerteForm" novalidate>
+
+        <div class="form-groep">
+          <label for="naam">Naam <span class="verplicht" aria-hidden="true">*</span></label>
+          <input type="text" id="naam" name="naam" placeholder="Jouw volledige naam" required autocomplete="name">
+        </div>
+
+        <div class="form-groep">
+          <label for="bedrijfsnaam">Bedrijfsnaam <span class="verplicht" aria-hidden="true">*</span></label>
+          <input type="text" id="bedrijfsnaam" name="bedrijfsnaam" placeholder="Naam van je bedrijf of organisatie" required autocomplete="organization">
+        </div>
+
+        <div class="form-groep">
+          <label for="email">E-mailadres <span class="verplicht" aria-hidden="true">*</span></label>
+          <input type="email" id="email" name="email" placeholder="jouw@emailadres.nl" required autocomplete="email">
+        </div>
+
+        <div class="form-groep">
+          <label for="telefoon">Telefoonnummer <span class="optioneel">(optioneel)</span></label>
+          <input type="tel" id="telefoon" name="telefoon" placeholder="06 12 34 56 78" autocomplete="tel">
+        </div>
+
+        <div class="form-groep">
+          <label for="sector">Sector <span class="verplicht" aria-hidden="true">*</span></label>
+          <select id="sector" name="sector" required>
+            <option value="">Kies je sector</option>
+            <option value="zorg">Zorg &amp; welzijn</option>
+            <option value="horeca">Horeca</option>
+            <option value="sport">Sportclub of vereniging</option>
+            <option value="bouw">Bouw &amp; techniek</option>
+            <option value="transport">Transport &amp; logistiek</option>
+            <option value="retail">Retail</option>
+            <option value="anders">Anders</option>
+          </select>
+        </div>
+
+        <div class="form-groep">
+          <label for="product">Product(en) <span class="verplicht" aria-hidden="true">*</span></label>
+          <select id="product" name="product" required>
+            <option value="">Kies een product</option>
+            <option value="tshirts">T-shirts</option>
+            <option value="polos">Polo's &amp; overhemden</option>
+            <option value="hoodies">Hoodies &amp; sweaters</option>
+            <option value="sport">Sportkleding</option>
+            <option value="jassen">Werkjassen &amp; vesten</option>
+            <option value="geschenken">Relatiegeschenken</option>
+            <option value="meerdere">Meerdere / weet ik nog niet</option>
+          </select>
+        </div>
+
+        <div class="form-groep">
+          <label for="aantal">Aantal stuks <span class="verplicht" aria-hidden="true">*</span></label>
+          <select id="aantal" name="aantal" required>
+            <option value="">Kies een hoeveelheid</option>
+            <option value="1-10">1-10 stuks</option>
+            <option value="10-25">10-25 stuks</option>
+            <option value="25-100">25-100 stuks</option>
+            <option value="100+">100+ stuks</option>
+          </select>
+        </div>
+
+        <div class="form-groep">
+          <label for="bericht">Bericht / toelichting <span class="verplicht" aria-hidden="true">*</span></label>
+          <textarea id="bericht" name="bericht" rows="5" placeholder="Beschrijf kort wat je zoekt. Denk aan: kleuren, gewenst materiaal, heb je al een logo beschikbaar, wanneer heb je het nodig?" required maxlength="500"></textarea>
+          <small class="teken-teller"><span id="tekenTeller">0</span>/500 tekens</small>
+        </div>
+
+        <!-- Honeypot: verborgen voor echte gebruikers -->
+        <div class="hp-veld" aria-hidden="true">
+          <label for="website">Laat dit veld leeg</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full">
+          <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+          Verstuur offerteaanvraag
+        </button>
+
+        <p class="privacy-note">
+          <i class="fa-solid fa-lock" aria-hidden="true"></i>
+          Je gegevens worden vertrouwelijk behandeld en nooit gedeeld met derden. Lees onze <a href="#">privacyverklaring</a>.
+        </p>
+
+      </form>
+    </div>
+
+    <div class="offerte-usps">
+      <div class="offerte-usp">
+        <i class="fa-solid fa-clock" aria-hidden="true"></i>
+        <span>Reactie binnen 1 werkdag</span>
+      </div>
+      <div class="offerte-usp">
+        <i class="fa-solid fa-handshake" aria-hidden="true"></i>
+        <span>Geen verplichtingen</span>
+      </div>
+      <div class="offerte-usp">
+        <i class="fa-solid fa-comments" aria-hidden="true"></i>
+        <span>Persoonlijk advies</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="logo"><span class="mkb">mkb</span><span class="rest">kleding.nl</span></a>
+        <p class="footer-omschrijving">Bedrijfskleding en merchandise met jouw logo, speciaal voor het Nederlandse MKB. Persoonlijk advies, geen minimale afname.</p>
+      </div>
+      <div class="footer-kolom">
+        <h4>Snel naar</h4>
+        <ul>
+          <li><a href="producten.html">Diensten</a></li>
+          <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="offerte.html">Offerte aanvragen</a></li>
+        </ul>
+      </div>
+      <div class="footer-kolom">
+        <h4>Contact</h4>
+        <ul>
+          <li><i class="fa-solid fa-envelope" aria-hidden="true"></i><a href="mailto:info@mkbkleding.nl">info@mkbkleding.nl</a></li>
+          <li><i class="fa-solid fa-phone" aria-hidden="true"></i>[telefoonnummer invullen]</li>
+          <li><i class="fa-solid fa-location-dot" aria-hidden="true"></i>[vestigingsplaats invullen]</li>
+          <li><i class="fa-solid fa-building" aria-hidden="true"></i>KVK: [nummer invullen]</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 MKB-kleding.nl. Alle rechten voorbehouden.</span>
+      <span>Privacyverklaring &middot; Algemene voorwaarden</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
