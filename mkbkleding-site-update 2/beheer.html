@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Beheer | MKB-kleding.nl</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<style>
+  body{background:#f4f5f7}
+  .beheer-wrap{max-width:880px;margin:0 auto;padding:24px 16px 80px}
+  .beheer-kop{display:flex;align-items:center;gap:12px;margin:8px 0 4px}
+  .beheer-kop img{height:30px}
+  .uitleg{background:#fff;border:1px solid #e2e5ea;border-radius:12px;padding:16px 20px;margin:16px 0;font-size:.95rem;line-height:1.55}
+  .uitleg ol{margin:8px 0 0 18px}
+  .tabs{display:flex;gap:8px;margin:18px 0 0;flex-wrap:wrap}
+  .tab-btn{border:1px solid #d5d8de;background:#fff;border-radius:999px;padding:9px 18px;cursor:pointer;font-weight:600;font-size:.95rem}
+  .tab-btn.actief{background:#1F4E79;color:#fff;border-color:#1F4E79}
+  .paneel{display:none;background:#fff;border:1px solid #e2e5ea;border-radius:14px;padding:22px;margin-top:14px}
+  .paneel.actief{display:block}
+  .paneel h2{margin:0 0 4px;font-size:1.3rem}
+  .veld{margin:12px 0}
+  .veld label{display:block;font-weight:600;margin-bottom:4px;font-size:.9rem}
+  .veld input,.veld textarea,.veld select{width:100%;padding:10px 12px;border:1px solid #ccd0d6;border-radius:8px;font:inherit;box-sizing:border-box}
+  .veld textarea{min-height:120px;resize:vertical}
+  .rij{display:flex;gap:12px;flex-wrap:wrap}
+  .rij .veld{flex:1;min-width:160px}
+  .knoppen{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+  .btn-blauw{background:#1F4E79;color:#fff;border:none;border-radius:8px;padding:11px 18px;font-weight:600;cursor:pointer;font-size:.95rem}
+  .btn-grijs{background:#eef0f3;color:#1F4E79;border:1px solid #d5d8de;border-radius:8px;padding:11px 18px;font-weight:600;cursor:pointer;font-size:.95rem}
+  .lijst{margin-top:22px;border-top:1px solid #eee;padding-top:14px}
+  .item{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;border:1px solid #eceef1;border-radius:10px;padding:12px 14px;margin-bottom:10px}
+  .item small{color:#667}
+  .item .acties{display:flex;gap:6px;flex-shrink:0}
+  .mini{border:none;border-radius:6px;padding:6px 10px;cursor:pointer;font-size:.82rem;font-weight:600}
+  .mini.del{background:#fde8e8;color:#b3261e}
+  .mini.app{background:#e7f3ea;color:#2e7d32}
+  .badge{font-size:.72rem;padding:2px 8px;border-radius:999px;font-weight:700}
+  .badge.ja{background:#e7f3ea;color:#2e7d32}.badge.nee{background:#fdecec;color:#b3261e}
+  .gen-uitvoer{width:100%;min-height:120px;font-family:monospace;font-size:.8rem;margin-top:10px;border:1px solid #ccd0d6;border-radius:8px;padding:10px;box-sizing:border-box;display:none}
+  .tip{font-size:.85rem;color:#667;margin-top:6px}
+</style>
+</head>
+<body>
+<div class="beheer-wrap">
+  <div class="beheer-kop"><img src="assets/logo.svg" alt="MKB-kleding.nl"><strong>Beheer</strong></div>
+  <div class="uitleg">
+    <strong>Zo werkt het.</strong> Voeg hier reviews, portfolio-items of blogs toe of verwijder ze. Klik daarna op
+    <em>&ldquo;Genereer bestand&rdquo;</em>: je krijgt een bestand dat je in GitHub uploadt (zelfde plek als waar het nu staat).
+    Pas na het uploaden is de wijziging live voor bezoekers.
+    <ol>
+      <li>Voeg/verwijder items en klik op <strong>Genereer bestand</strong>.</li>
+      <li>Het bestand wordt gedownload (bv. <code>reviews-data.js</code>).</li>
+      <li>Upload het in GitHub in de map <code>/data</code> (en blog-artikelen in <code>/blog</code>).</li>
+    </ol>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn actief" data-tab="reviews">Reviews</button>
+    <button class="tab-btn" data-tab="portfolio">Portfolio</button>
+    <button class="tab-btn" data-tab="blog">Blog</button>
+  </div>
+
+  <!-- ============ REVIEWS ============ -->
+  <section class="paneel actief" id="paneel-reviews">
+    <h2>Reviews</h2>
+    <div class="rij">
+      <div class="veld"><label>Naam</label><input id="r-naam" placeholder="Roel van Vliet"></div>
+      <div class="veld"><label>Functie</label><input id="r-functie" placeholder="Directeur"></div>
+    </div>
+    <div class="rij">
+      <div class="veld"><label>Bedrijf</label><input id="r-bedrijf" placeholder="Van Vliet Containers"></div>
+      <div class="veld"><label>Sector</label><input id="r-sector" placeholder="Transport"></div>
+    </div>
+    <div class="rij">
+      <div class="veld" style="max-width:160px"><label>Sterren</label>
+        <select id="r-sterren"><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select></div>
+      <div class="veld" style="max-width:200px"><label>Datum</label><input id="r-datum" type="date"></div>
+    </div>
+    <div class="veld"><label>Reviewtekst</label><textarea id="r-tekst" placeholder="Wat vond de klant?"></textarea></div>
+    <div class="veld"><label><input type="checkbox" id="r-goed" checked style="width:auto"> Direct goedkeuren (tonen op de site)</label></div>
+    <div class="knoppen">
+      <button class="btn-blauw" onclick="addReview()"><i class="fa-solid fa-plus"></i> Review toevoegen</button>
+      <button class="btn-grijs" onclick="genReviews()"><i class="fa-solid fa-download"></i> Genereer bestand (reviews-data.js)</button>
+    </div>
+    <textarea class="gen-uitvoer" id="r-uitvoer" readonly></textarea>
+    <div class="lijst" id="r-lijst"></div>
+  </section>
+
+  <!-- ============ PORTFOLIO ============ -->
+  <section class="paneel" id="paneel-portfolio">
+    <h2>Portfolio</h2>
+    <div class="veld"><label>Label (wat zie je?)</label><input id="p-label" placeholder="Hoodies - Voetbalclub De Hofstede"></div>
+    <div class="veld"><label>Afbeelding-URL (optioneel)</label><input id="p-img" placeholder="Laat leeg voor 'foto komt binnenkort'">
+      <p class="tip">Heb je een foto? Upload die in GitHub in <code>/assets</code> en zet hier bv. <code>assets/hoodie-hofstede.jpg</code>.</p></div>
+    <div class="knoppen">
+      <button class="btn-blauw" onclick="addPortfolio()"><i class="fa-solid fa-plus"></i> Item toevoegen</button>
+      <button class="btn-grijs" onclick="genPortfolio()"><i class="fa-solid fa-download"></i> Genereer bestand (portfolio-data.js)</button>
+    </div>
+    <textarea class="gen-uitvoer" id="p-uitvoer" readonly></textarea>
+    <div class="lijst" id="p-lijst"></div>
+  </section>
+
+  <!-- ============ BLOG ============ -->
+  <section class="paneel" id="paneel-blog">
+    <h2>Blog</h2>
+    <div class="veld"><label>Titel</label><input id="bl-titel" placeholder="Zo kies je de juiste hoodie voor je team"></div>
+    <div class="rij">
+      <div class="veld"><label>Categorie / tag</label><input id="bl-tag" placeholder="Tips & advies"></div>
+      <div class="veld" style="max-width:200px"><label>Datum (zoals getoond)</label><input id="bl-datum" placeholder="14 juni 2026"></div>
+      <div class="veld" style="max-width:140px"><label>Leestijd</label><input id="bl-leestijd" placeholder="4 min"></div>
+    </div>
+    <div class="veld"><label>Samenvatting (op de blogkaart)</label><textarea id="bl-samenvatting" style="min-height:70px" placeholder="Korte tekst die op de kaart staat."></textarea></div>
+    <div class="veld"><label>Artikeltekst</label><textarea id="bl-body" style="min-height:200px" placeholder="Schrijf je artikel. Laat een lege regel tussen alinea's. Begin een regel met '## ' voor een tussenkop."></textarea>
+      <p class="tip">Tip: lege regel = nieuwe alinea. Een regel die begint met <code>## </code> wordt een tussenkop.</p></div>
+    <div class="knoppen">
+      <button class="btn-blauw" onclick="addBlog()"><i class="fa-solid fa-plus"></i> Blog toevoegen aan lijst</button>
+      <button class="btn-grijs" onclick="genBlogData()"><i class="fa-solid fa-download"></i> Genereer lijst-bestand (blog-data.js)</button>
+      <button class="btn-grijs" onclick="genBlogArtikel()"><i class="fa-solid fa-file-code"></i> Genereer artikel-pagina (.html)</button>
+    </div>
+    <p class="tip">Upload het artikelbestand in de map <code>/blog</code> en het lijst-bestand in <code>/data</code>.</p>
+    <textarea class="gen-uitvoer" id="bl-uitvoer" readonly></textarea>
+    <div class="lijst" id="bl-lijst"></div>
+  </section>
+</div>
+
+<script src="data/reviews-data.js"></script>
+<script src="data/portfolio-data.js"></script>
+<script src="data/blog-data.js"></script>
+<script>
+(function(){
+  "use strict";
+  var reviews   = (window.MKB_REVIEWS   || []).slice();
+  var portfolio = (window.MKB_PORTFOLIO || []).slice();
+  var blog      = (window.MKB_BLOG      || []).slice();
+
+  function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');}
+  function val(id){return document.getElementById(id).value.trim();}
+  function uid(p){return p+Date.now().toString(36);}
+  function download(name,text){var b=new Blob([text],{type:'text/plain;charset=utf-8'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(a.href);},100);}
+  function show(id,text){var t=document.getElementById(id);t.value=text;t.style.display='block';}
+
+  /* ---- tabs ---- */
+  document.querySelectorAll('.tab-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('.tab-btn').forEach(function(x){x.classList.remove('actief');});
+      document.querySelectorAll('.paneel').forEach(function(x){x.classList.remove('actief');});
+      b.classList.add('actief');
+      document.getElementById('paneel-'+b.dataset.tab).classList.add('actief');
+    });
+  });
+
+  /* ---- REVIEWS ---- */
+  function renderReviews(){
+    var el=document.getElementById('r-lijst');
+    if(!reviews.length){el.innerHTML='<p>Nog geen reviews.</p>';return;}
+    el.innerHTML=reviews.slice().sort(function(a,b){return String(b.datum).localeCompare(String(a.datum));}).map(function(r){
+      return '<div class="item"><div><strong>'+esc(r.naam)+'</strong> &mdash; '+esc(r.bedrijf)+
+        ' <span class="badge '+(r.goedgekeurd?'ja':'nee')+'">'+(r.goedgekeurd?'Zichtbaar':'Verborgen')+'</span>'+
+        '<br><small>'+esc(r.functie)+' &bull; '+esc(r.sector)+' &bull; '+r.sterren+'&#9733; &bull; '+esc(r.datum)+'</small>'+
+        '<br><small>&ldquo;'+esc(String(r.tekst).slice(0,90))+(String(r.tekst).length>90?'&hellip;':'')+'&rdquo;</small></div>'+
+        '<div class="acties"><button class="mini app" onclick="toggleReview(\''+r.id+'\')">'+(r.goedgekeurd?'Verberg':'Toon')+'</button>'+
+        '<button class="mini del" onclick="delReview(\''+r.id+'\')">Verwijder</button></div></div>';
+    }).join('');
+  }
+  window.addReview=function(){
+    if(!val('r-naam')||!val('r-tekst')){alert('Vul minstens naam en reviewtekst in.');return;}
+    reviews.push({id:uid('r'),naam:val('r-naam'),functie:val('r-functie'),bedrijf:val('r-bedrijf'),
+      sector:val('r-sector'),sterren:parseInt(val('r-sterren'),10)||5,tekst:val('r-tekst'),
+      datum:val('r-datum')||new Date().toISOString().slice(0,10),goedgekeurd:document.getElementById('r-goed').checked});
+    ['r-naam','r-functie','r-bedrijf','r-sector','r-tekst','r-datum'].forEach(function(i){document.getElementById(i).value='';});
+    renderReviews();
+  };
+  window.delReview=function(id){reviews=reviews.filter(function(r){return r.id!==id;});renderReviews();};
+  window.toggleReview=function(id){reviews=reviews.map(function(r){return r.id===id?Object.assign({},r,{goedgekeurd:!r.goedgekeurd}):r;});renderReviews();};
+  window.genReviews=function(){
+    var txt='/* reviews-data.js — gegenereerd via beheer.html */\nwindow.MKB_REVIEWS = '+JSON.stringify(reviews,null,2)+';\n';
+    download('reviews-data.js',txt);show('r-uitvoer',txt);
+  };
+
+  /* ---- PORTFOLIO ---- */
+  function renderPortfolio(){
+    var el=document.getElementById('p-lijst');
+    if(!portfolio.length){el.innerHTML='<p>Nog geen items.</p>';return;}
+    el.innerHTML=portfolio.map(function(p){
+      return '<div class="item"><div><strong>'+esc(p.label)+'</strong><br><small>'+(p.afbeelding?esc(p.afbeelding):'foto komt binnenkort')+'</small></div>'+
+        '<div class="acties"><button class="mini del" onclick="delPortfolio(\''+p.id+'\')">Verwijder</button></div></div>';
+    }).join('');
+  }
+  window.addPortfolio=function(){
+    if(!val('p-label')){alert('Vul een label in.');return;}
+    portfolio.push({id:uid('p'),label:val('p-label'),afbeelding:val('p-img')});
+    document.getElementById('p-label').value='';document.getElementById('p-img').value='';
+    renderPortfolio();
+  };
+  window.delPortfolio=function(id){portfolio=portfolio.filter(function(p){return p.id!==id;});renderPortfolio();};
+  window.genPortfolio=function(){
+    var txt='/* portfolio-data.js — gegenereerd via beheer.html */\nwindow.MKB_PORTFOLIO = '+JSON.stringify(portfolio,null,2)+';\n';
+    download('portfolio-data.js',txt);show('p-uitvoer',txt);
+  };
+
+  /* ---- BLOG ---- */
+  function slugify(s){return String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,60);}
+  function renderBlog(){
+    var el=document.getElementById('bl-lijst');
+    if(!blog.length){el.innerHTML='<p>Nog geen artikelen.</p>';return;}
+    el.innerHTML=blog.map(function(b){
+      return '<div class="item"><div><strong>'+esc(b.titel)+'</strong><br><small>'+esc(b.tag)+' &bull; '+esc(b.datum)+' &bull; '+esc(b.href)+'</small></div>'+
+        '<div class="acties"><button class="mini del" onclick="delBlog(\''+b.id+'\')">Verwijder</button></div></div>';
+    }).join('');
+  }
+  window.addBlog=function(){
+    if(!val('bl-titel')){alert('Vul minstens een titel in.');return;}
+    var slug=slugify(val('bl-titel'));
+    blog.unshift({id:uid('b'),titel:val('bl-titel'),href:'blog/'+slug+'.html',tag:val('bl-tag'),
+      datum:val('bl-datum')||new Date().toLocaleDateString('nl-NL',{day:'numeric',month:'long',year:'numeric'}),
+      leestijd:val('bl-leestijd')||'4 min',samenvatting:val('bl-samenvatting')});
+    renderBlog();
+    alert('Toegevoegd aan de lijst. Klik nu op "Genereer artikel-pagina" voor het artikelbestand, en op "Genereer lijst-bestand" voor de blog-index.');
+  };
+  window.delBlog=function(id){blog=blog.filter(function(b){return b.id!==id;});renderBlog();};
+  window.genBlogData=function(){
+    var txt='/* blog-data.js — gegenereerd via beheer.html */\nwindow.MKB_BLOG = '+JSON.stringify(blog,null,2)+';\n';
+    download('blog-data.js',txt);show('bl-uitvoer',txt);
+  };
+  function bodyToHtml(raw){
+    return raw.split(/\n\s*\n/).map(function(block){
+      block=block.trim(); if(!block) return '';
+      if(block.indexOf('## ')===0) return '    <h2>'+esc(block.slice(3).trim())+'</h2>';
+      return '    <p>'+esc(block).replace(/\n/g,'<br>')+'</p>';
+    }).filter(Boolean).join('\n\n');
+  }
+  window.genBlogArtikel=function(){
+    var titel=val('bl-titel'); if(!titel){alert('Vul eerst een titel en tekst in.');return;}
+    var slug=slugify(titel), tag=val('bl-tag'), datum=val('bl-datum')||new Date().toLocaleDateString('nl-NL',{day:'numeric',month:'long',year:'numeric'});
+    var leestijd=val('bl-leestijd')||'4 min', samenvatting=val('bl-samenvatting'), body=bodyToHtml(val('bl-body'));
+    var url='https://www.mkbkleding.nl/blog/'+slug+'.html';
+    var html='<!DOCTYPE html>\n<html lang="nl">\n<head>\n<meta charset="UTF-8">\n'+
+'<meta name="viewport" content="width=device-width, initial-scale=1.0">\n'+
+'<title>'+esc(titel)+' | MKB-kleding.nl</title>\n'+
+'  <link rel="canonical" href="'+url+'">\n'+
+'  <meta property="og:type" content="article">\n  <meta property="og:site_name" content="MKB-kleding.nl">\n'+
+'  <meta property="og:title" content="'+esc(titel)+' | MKB-kleding.nl">\n'+
+'  <meta property="og:description" content="'+esc(samenvatting)+'">\n'+
+'  <meta property="og:url" content="'+url+'">\n  <meta property="og:locale" content="nl_NL">\n  <meta name="twitter:card" content="summary">\n'+
+'<meta name="description" content="'+esc(samenvatting)+'">\n'+
+'<link rel="preconnect" href="https://fonts.googleapis.com">\n'+
+'<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">\n'+
+'<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">\n'+
+'<link rel="stylesheet" href="../css/style.css">\n  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">\n</head>\n<body>\n\n'+
+'<nav class="nav" aria-label="Hoofdnavigatie">\n  <div class="container nav-inner">\n'+
+'    <a href="../index.html" class="logo"><img src="../assets/logo.svg" alt="mkbkleding.nl" class="logo-img" width="142" height="32"></a>\n'+
+'    <button class="nav-toggle" aria-label="Menu openen" aria-expanded="false" aria-controls="navLinks"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>\n'+
+'    <ul class="nav-links" id="navLinks">\n'+
+'      <li><a href="../index.html">Home</a></li>\n      <li><a href="../producten.html">Diensten</a></li>\n'+
+'      <li><a href="../portfolio.html">Portfolio</a></li>\n      <li><a href="../blog.html">Blog</a></li>\n'+
+'      <li><a href="../over-ons.html">Over ons</a></li>\n      <li><a href="../contact.html">Contact</a></li>\n'+
+'      <li><a href="../offerte.html" class="btn btn-primary btn-small">Offerte aanvragen</a></li>\n    </ul>\n  </div>\n</nav>\n\n'+
+'<header class="artikel-hero">\n  <div class="container">\n    <div class="artikel-meta">\n'+
+'      <span class="blog-tag">'+esc(tag)+'</span>\n'+
+'      <span><i class="fa-regular fa-calendar"></i> '+esc(datum)+'</span>\n'+
+'      <span><i class="fa-regular fa-clock"></i> '+esc(leestijd)+' leestijd</span>\n    </div>\n'+
+'    <h1>'+esc(titel)+'</h1>\n  </div>\n</header>\n\n'+
+'<main class="artikel-body">\n  <div class="container artikel-container">\n\n'+body+'\n\n'+
+'    <p style="margin-top:32px"><a href="../offerte.html" class="btn btn-primary">Offerte aanvragen</a></p>\n\n  </div>\n</main>\n\n'+
+'<footer>\n  <div class="container">\n    <div class="footer-bottom">\n'+
+'      <span>&copy; 2026 MKB-kleding.nl. Alle rechten voorbehouden.</span>\n'+
+'      <span><a href="../privacy.html">Privacyverklaring</a> &middot; <a href="../voorwaarden.html">Algemene voorwaarden</a></span>\n'+
+'    </div>\n  </div>\n</footer>\n\n<script src="../js/main.js"><\/script>\n</body>\n</html>\n';
+    download(slug+'.html',html);show('bl-uitvoer',html);
+  };
+
+  renderReviews();renderPortfolio();renderBlog();
+})();
+</script>
+</body>
+</html>
