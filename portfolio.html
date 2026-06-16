@@ -56,50 +56,7 @@
       <p>Foto's en projecten worden hier toegevoegd zodra ze beschikbaar zijn. Neem gerust contact op voor een kijkje in ons portfolio.</p>
     </div>
 
-    <div class="portfolio-grid reveal">
-      <div class="portfolio-item">
-        <div class="portfolio-placeholder">
-          <i class="fa-regular fa-image" aria-hidden="true"></i>
-          <p>Foto komt binnenkort</p>
-          <small>Polo's - Zorgsector</small>
-        </div>
-      </div>
-      <div class="portfolio-item">
-        <div class="portfolio-placeholder">
-          <i class="fa-regular fa-image" aria-hidden="true"></i>
-          <p>Foto komt binnenkort</p>
-          <small>T-shirts - Horeca</small>
-        </div>
-      </div>
-      <div class="portfolio-item">
-        <div class="portfolio-placeholder">
-          <i class="fa-regular fa-image" aria-hidden="true"></i>
-          <p>Foto komt binnenkort</p>
-          <small>Sportkleding - Voetbalclub</small>
-        </div>
-      </div>
-      <div class="portfolio-item">
-        <div class="portfolio-placeholder">
-          <i class="fa-regular fa-image" aria-hidden="true"></i>
-          <p>Foto komt binnenkort</p>
-          <small>Hoodies - Bouwbedrijf</small>
-        </div>
-      </div>
-      <div class="portfolio-item">
-        <div class="portfolio-placeholder">
-          <i class="fa-regular fa-image" aria-hidden="true"></i>
-          <p>Foto komt binnenkort</p>
-          <small>Relatiegeschenken</small>
-        </div>
-      </div>
-      <div class="portfolio-item">
-        <div class="portfolio-placeholder">
-          <i class="fa-regular fa-image" aria-hidden="true"></i>
-          <p>Foto komt binnenkort</p>
-          <small>Werkjassen - Transport</small>
-        </div>
-      </div>
-    </div>
+    <div class="portfolio-grid reveal" id="portfolioGrid"></div>
 
     <div class="reveal" style="margin-top:32px;background:var(--rose-soft);border:2px dashed var(--rose);border-radius:var(--radius);padding:20px 28px;max-width:600px">
       <p style="font-weight:600;color:var(--slate)">
@@ -171,7 +128,10 @@
 </footer>
 
 <script src="js/main.js"></script>
-<script src="js/reviews.js"></script>
+<script src="data/reviews-data.js"></script>
+<script src="data/portfolio-data.js"></script>
+<script src="data/blog-data.js"></script>
+<script src="js/content.js"></script>
 <script>
   if (typeof Reviews !== 'undefined') {
     Reviews.renderReviewsGrid('reviewsPortfolio', null, true);

@@ -14,19 +14,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="css/style.css" />
-</head>
-<body>
-
-<nav class="nav" aria-label="Hoofdnavigatie">
   <meta property="og:url" content="https://www.mkbkleding.nl/over-ons.html">
   <meta property="og:locale" content="nl_NL">
   <meta name="twitter:card" content="summary">
   <meta name="description" content="Maak kennis met het team achter MKB-kleding.nl. Wij helpen Nederlandse MKB-bedrijven aan professionele bedrijfskleding met persoonlijk advies." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
@@ -67,7 +58,7 @@
         <div class="stat-label">Tevreden MKB-bedrijven</div>
       </div>
       <div class="stat-blok">
-        <div class="stat-getal">5</div>
+        <div class="stat-getal">1</div>
         <div class="stat-label">Stuks minimum &mdash; meer hoeft niet</div>
       </div>
       <div class="stat-blok">
@@ -205,7 +196,10 @@
 </footer>
 
 <script src="js/main.js"></script>
-<script src="js/reviews.js"></script>
+<script src="data/reviews-data.js"></script>
+<script src="data/portfolio-data.js"></script>
+<script src="data/blog-data.js"></script>
+<script src="js/content.js"></script>
 <script>
   if (typeof Reviews !== 'undefined') {
     Reviews.renderReviewsGrid('reviewsOverOns', null, true);

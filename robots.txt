@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /reviews-beheer.html
+Disallow: /beheer.html
 
 Sitemap: https://www.mkbkleding.nl/sitemap.xml
