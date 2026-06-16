@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reviews beheren | MKB-kleding.nl Admin</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<style>
+  .admin-wrap { min-height: 100vh; background: var(--bg-soft); }
+  .admin-topbar {
+    background: var(--slate-900);
+    padding: 16px 0;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    border-bottom: 1px solid rgba(148,163,184,0.15);
+  }
+  .admin-topbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .admin-topbar-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn-admin {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.88rem;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.15s ease;
+  }
+  .btn-admin:hover { opacity: 0.85; }
+  .btn-admin-slate { background: var(--slate-600); color: #fff; }
+  .btn-admin-rose { background: var(--rose-deep); color: #fff; }
+  .btn-admin-danger { background: #DC2626; color: #fff; }
+  .btn-admin-green { background: #16A34A; color: #fff; }
+  .btn-admin-outline { background: transparent; color: var(--slate-400); border: 1.5px solid var(--slate-600); }
+
+  .admin-content { padding: 40px 0 80px; }
+  .admin-grid { display: grid; grid-template-columns: 400px 1fr; gap: 32px; align-items: start; }
+
+  .admin-panel {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .admin-panel-header {
+    background: var(--slate-900);
+    padding: 16px 24px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .admin-panel-body { padding: 24px; }
+
+  .admin-field { display: flex; flex-direction: column; margin-bottom: 14px; }
+  .admin-field label { font-weight: 700; font-size: 0.84rem; margin-bottom: 6px; color: var(--slate-900); }
+  .admin-field input,
+  .admin-field select,
+  .admin-field textarea {
+    font-family: inherit;
+    font-size: 0.94rem;
+    color: var(--slate-900);
+    padding: 10px 12px;
+    border: 1.5px solid var(--line);
+    border-radius: 8px;
+    background: var(--bg-soft);
+    transition: border-color 0.15s ease;
+  }
+  .admin-field input:focus,
+  .admin-field select:focus,
+  .admin-field textarea:focus { border-color: var(--rose); background: #fff; outline: none; }
+  .admin-field textarea { resize: vertical; min-height: 90px; }
+  .admin-field.invalid input,
+  .admin-field.invalid select,
+  .admin-field.invalid textarea { border-color: #DC2626; }
+  .admin-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .admin-checkbox { display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 600; font-size: 0.9rem; }
+  .admin-checkbox input { width: 18px; height: 18px; cursor: pointer; accent-color: var(--rose-deep); }
+
+  .review-admin-item {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .review-admin-item:last-child { margin-bottom: 0; }
+  .review-admin-main { flex: 1; min-width: 0; }
+  .review-admin-header { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
+  .review-admin-name { font-weight: 700; font-size: 0.97rem; }
+  .review-admin-bedrijf { font-size: 0.85rem; color: var(--slate-600); }
+  .review-admin-stars { color: var(--rose); font-size: 0.85rem; }
+  .review-admin-tekst { font-size: 0.88rem; color: var(--slate-600); margin: 6px 0; font-style: italic; }
+  .review-admin-meta { font-size: 0.8rem; color: var(--slate-400); }
+  .review-admin-actions { display: flex; flex-direction: column; gap: 7px; flex-shrink: 0; }
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-size: 0.76rem;
+    font-weight: 700;
+  }
+  .badge-green { background: #DCFCE7; color: #15803D; }
+  .badge-gray { background: var(--bg-soft); color: var(--slate-400); border: 1px solid var(--line); }
+
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--slate-900);
+    color: #fff;
+    padding: 14px 20px;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 0.92rem;
+    box-shadow: var(--shadow-lift);
+    z-index: 100;
+    transform: translateY(80px);
+    opacity: 0;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  .toast.tonen { transform: translateY(0); opacity: 1; }
+  .toast.success { border-left: 4px solid #16A34A; }
+  .toast.error { border-left: 4px solid #DC2626; }
+
+  .login-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--slate-900);
+  }
+  .login-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 40px 36px;
+    width: min(400px, calc(100vw - 40px));
+    text-align: center;
+  }
+  .login-card .logo { font-size: 1.4rem; }
+  .login-card h2 { font-size: 1.2rem; font-weight: 700; margin: 20px 0 6px; }
+  .login-card p { color: var(--slate-600); font-size: 0.92rem; margin-bottom: 24px; }
+  .login-card input {
+    width: 100%;
+    font-family: inherit;
+    font-size: 1rem;
+    padding: 13px 16px;
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    margin-bottom: 14px;
+    background: var(--bg-soft);
+    transition: border-color 0.15s ease;
+  }
+  .login-card input:focus { border-color: var(--rose); background: #fff; outline: none; }
+  .login-error { color: #DC2626; font-size: 0.88rem; font-weight: 600; margin-top: 8px; display: none; }
+
+  #editPanel { display: none; }
+  #editPanel.open { display: block; }
+
+  .empty-state {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--slate-400);
+  }
+  .empty-state i { font-size: 2.5rem; margin-bottom: 12px; display: block; }
+
+  @media (max-width: 900px) {
+    .admin-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Login scherm -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <a href="index.html" class="logo"><img src="assets/logo.svg" alt="mkbkleding.nl" class="logo-img" width="142" height="32"></a>
+    <h2>Beheer inloggen</h2>
+    <p>Voer het wachtwoord in om reviews te beheren.</p>
+    <input type="password" id="wachtwoordInput" placeholder="Wachtwoord" autocomplete="current-password">
+    <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="controleerWachtwoord()">
+      Inloggen <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+    </button>
+    <p class="login-error" id="loginFout">Wachtwoord onjuist. Probeer opnieuw.</p>
+  </div>
+</div>
+
+<!-- Admin paneel -->
+<div class="admin-wrap" id="adminWrap" style="display:none">
+
+  <div class="admin-topbar">
+    <div class="container admin-topbar-inner">
+      <a href="index.html" class="logo"><img src="assets/logo-wit.svg" alt="mkbkleding.nl" class="logo-img" width="142" height="32"></a>
+      <div class="admin-topbar-actions">
+        <button class="btn-admin btn-admin-slate" onclick="Reviews.exportReviews()">
+          <i class="fa-solid fa-download" aria-hidden="true"></i> Exporteren
+        </button>
+        <label class="btn-admin btn-admin-slate" style="cursor:pointer">
+          <i class="fa-solid fa-upload" aria-hidden="true"></i> Importeren
+          <input type="file" accept=".json" id="importBestand" style="display:none">
+        </label>
+        <button class="btn-admin btn-admin-outline" onclick="uitloggen()">
+          <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i> Uitloggen
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="admin-content">
+    <div class="container">
+      <div class="admin-grid">
+
+        <!-- Linker kolom: formulieren -->
+        <div>
+          <!-- Nieuwe review -->
+          <div class="admin-panel" style="margin-bottom:24px">
+            <div class="admin-panel-header">
+              <i class="fa-solid fa-plus" aria-hidden="true"></i> Nieuwe review toevoegen
+            </div>
+            <div class="admin-panel-body">
+              <form id="nieuwReviewForm" novalidate>
+                <div class="admin-field-row">
+                  <div class="admin-field" id="veld-naam">
+                    <label for="rNaam">Naam</label>
+                    <input type="text" id="rNaam" placeholder="Jan de Vries" required>
+                  </div>
+                  <div class="admin-field" id="veld-functie">
+                    <label for="rFunctie">Functie</label>
+                    <input type="text" id="rFunctie" placeholder="Directeur">
+                  </div>
+                </div>
+                <div class="admin-field" id="veld-bedrijf">
+                  <label for="rBedrijf">Bedrijfsnaam</label>
+                  <input type="text" id="rBedrijf" placeholder="Naam BV" required>
+                </div>
+                <div class="admin-field-row">
+                  <div class="admin-field">
+                    <label for="rSector">Sector</label>
+                    <select id="rSector">
+                      <option value="Zorg">Zorg</option>
+                      <option value="Horeca">Horeca</option>
+                      <option value="Sport">Sport</option>
+                      <option value="Bouw">Bouw</option>
+                      <option value="Transport">Transport</option>
+                      <option value="Retail">Retail</option>
+                      <option value="Anders">Anders</option>
+                    </select>
+                  </div>
+                  <div class="admin-field">
+                    <label for="rSterren">Sterren</label>
+                    <select id="rSterren">
+                      <option value="5" selected>5 sterren</option>
+                      <option value="4">4 sterren</option>
+                      <option value="3">3 sterren</option>
+                      <option value="2">2 sterren</option>
+                      <option value="1">1 ster</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="admin-field">
+                  <label for="rDatum">Datum</label>
+                  <input type="date" id="rDatum" required>
+                </div>
+                <div class="admin-field" id="veld-tekst">
+                  <label for="rTekst">Reviewtekst</label>
+                  <textarea id="rTekst" placeholder="Wat zei de klant..." required></textarea>
+                </div>
+                <div class="admin-field">
+                  <label class="admin-checkbox">
+                    <input type="checkbox" id="rGoedgekeurd" checked>
+                    Direct zichtbaar op website
+                  </label>
+                </div>
+                <button type="submit" class="btn-admin btn-admin-rose" style="width:100%;justify-content:center;padding:12px">
+                  <i class="fa-solid fa-plus" aria-hidden="true"></i> Review toevoegen
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Bewerk review -->
+          <div class="admin-panel" id="editPanel">
+            <div class="admin-panel-header" style="background:var(--slate-600)">
+              <i class="fa-solid fa-pen" aria-hidden="true"></i> Review bewerken
+            </div>
+            <div class="admin-panel-body">
+              <form id="bewerkForm" novalidate>
+                <input type="hidden" id="eId">
+                <div class="admin-field-row">
+                  <div class="admin-field">
+                    <label for="eNaam">Naam</label>
+                    <input type="text" id="eNaam" required>
+                  </div>
+                  <div class="admin-field">
+                    <label for="eFunctie">Functie</label>
+                    <input type="text" id="eFunctie">
+                  </div>
+                </div>
+                <div class="admin-field">
+                  <label for="eBedrijf">Bedrijfsnaam</label>
+                  <input type="text" id="eBedrijf" required>
+                </div>
+                <div class="admin-field-row">
+                  <div class="admin-field">
+                    <label for="eSector">Sector</label>
+                    <select id="eSector">
+                      <option>Zorg</option><option>Horeca</option><option>Sport</option>
+                      <option>Bouw</option><option>Transport</option><option>Retail</option><option>Anders</option>
+                    </select>
+                  </div>
+                  <div class="admin-field">
+                    <label for="eSterren">Sterren</label>
+                    <select id="eSterren">
+                      <option value="5">5 sterren</option><option value="4">4 sterren</option>
+                      <option value="3">3 sterren</option><option value="2">2 sterren</option><option value="1">1 ster</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="admin-field">
+                  <label for="eDatum">Datum</label>
+                  <input type="date" id="eDatum" required>
+                </div>
+                <div class="admin-field">
+                  <label for="eTekst">Reviewtekst</label>
+                  <textarea id="eTekst" required></textarea>
+                </div>
+                <div class="admin-field">
+                  <label class="admin-checkbox">
+                    <input type="checkbox" id="eGoedgekeurd">
+                    Zichtbaar op website
+                  </label>
+                </div>
+                <div style="display:flex;gap:10px">
+                  <button type="submit" class="btn-admin btn-admin-rose" style="flex:1;justify-content:center;padding:11px">
+                    <i class="fa-solid fa-save" aria-hidden="true"></i> Opslaan
+                  </button>
+                  <button type="button" class="btn-admin btn-admin-slate" onclick="sluitBewerken()" style="padding:11px 16px">
+                    Annuleren
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rechter kolom: lijst -->
+        <div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+            <h2 style="font-size:1.35rem;font-weight:800">
+              Bestaande reviews <span id="reviewTeller" style="color:var(--slate-400);font-weight:500;font-size:1rem"></span>
+            </h2>
+          </div>
+          <div id="reviewLijst"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast melding -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/reviews.js"></script>
+<script>
+  const WACHTWOORD = 'mkbkleding2026';
+
+  function controleerWachtwoord() {
+    const invoer = document.getElementById('wachtwoordInput').value;
+    if (invoer === WACHTWOORD) {
+      localStorage.setItem('mkb_admin', 'ja');
+      toonAdmin();
+    } else {
+      document.getElementById('loginFout').style.display = 'block';
+      document.getElementById('wachtwoordInput').value = '';
+      document.getElementById('wachtwoordInput').focus();
+    }
+  }
+
+  document.getElementById('wachtwoordInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') controleerWachtwoord();
+  });
+
+  function toonAdmin() {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminWrap').style.display = 'block';
+    laadLijst();
+    document.getElementById('rDatum').value = new Date().toISOString().split('T')[0];
+  }
+
+  function uitloggen() {
+    if (confirm('Uitloggen?')) {
+      localStorage.removeItem('mkb_admin');
+      location.reload();
+    }
+  }
+
+  // Check al ingelogd
+  if (localStorage.getItem('mkb_admin') === 'ja') toonAdmin();
+
+  // ---- Toast ----
+  let toastTimer;
+  function toonToast(tekst, type = 'success') {
+    const el = document.getElementById('toast');
+    el.textContent = tekst;
+    el.className = 'toast tonen ' + type;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.className = 'toast', 3000);
+  }
+
+  // ---- Lijst renderen ----
+  function laadLijst() {
+    const reviews = Reviews.getReviews();
+    const el = document.getElementById('reviewLijst');
+    document.getElementById('reviewTeller').textContent = `(${reviews.length})`;
+
+    if (reviews.length === 0) {
+      el.innerHTML = `<div class="empty-state"><i class="fa-regular fa-star"></i><p>Nog geen reviews. Voeg de eerste toe.</p></div>`;
+      return;
+    }
+
+    const sorted = [...reviews].sort((a, b) => b.datum.localeCompare(a.datum));
+    el.innerHTML = sorted.map(r => `
+      <div class="review-admin-item">
+        <div class="review-admin-main">
+          <div class="review-admin-header">
+            <span class="review-admin-name">${escHtml(r.naam)}</span>
+            <span class="review-admin-bedrijf">${escHtml(r.functie ? r.functie + ' bij ' : '')}${escHtml(r.bedrijf)}</span>
+            <span class="badge ${r.goedgekeurd ? 'badge-green' : 'badge-gray'}">${r.goedgekeurd ? 'Zichtbaar' : 'Verborgen'}</span>
+          </div>
+          <div class="review-admin-stars">${Reviews.renderStars(r.sterren)}</div>
+          <p class="review-admin-tekst">"${escHtml(r.tekst.slice(0, 120))}${r.tekst.length > 120 ? '...' : ''}"</p>
+          <div class="review-admin-meta">${escHtml(r.sector)} &middot; ${r.datum}</div>
+        </div>
+        <div class="review-admin-actions">
+          <button class="btn-admin btn-admin-slate" style="font-size:0.8rem;padding:7px 12px" onclick="bewerkReview('${r.id}')">
+            <i class="fa-solid fa-pen" aria-hidden="true"></i>
+          </button>
+          <button class="btn-admin ${r.goedgekeurd ? 'btn-admin-outline' : 'btn-admin-green'}" style="font-size:0.8rem;padding:7px 10px" onclick="wisselGoedkeuring('${r.id}')">
+            ${r.goedgekeurd ? '<i class="fa-solid fa-eye-slash"></i>' : '<i class="fa-solid fa-eye"></i>'}
+          </button>
+          <button class="btn-admin btn-admin-danger" style="font-size:0.8rem;padding:7px 10px" onclick="verwijderReview('${r.id}')">
+            <i class="fa-solid fa-trash" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function escHtml(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ---- Nieuwe review ----
+  document.getElementById('nieuwReviewForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const naam = document.getElementById('rNaam').value.trim();
+    const bedrijf = document.getElementById('rBedrijf').value.trim();
+    const tekst = document.getElementById('rTekst').value.trim();
+
+    let ok = true;
+    ['veld-naam','veld-bedrijf','veld-tekst'].forEach(id => document.getElementById(id).classList.remove('invalid'));
+    if (naam.length < 2) { document.getElementById('veld-naam').classList.add('invalid'); ok = false; }
+    if (bedrijf.length < 2) { document.getElementById('veld-bedrijf').classList.add('invalid'); ok = false; }
+    if (tekst.length < 10) { document.getElementById('veld-tekst').classList.add('invalid'); ok = false; }
+    if (!ok) return;
+
+    Reviews.addReview({
+      naam,
+      functie: document.getElementById('rFunctie').value.trim(),
+      bedrijf,
+      sector: document.getElementById('rSector').value,
+      sterren: parseInt(document.getElementById('rSterren').value),
+      datum: document.getElementById('rDatum').value,
+      tekst,
+      goedgekeurd: document.getElementById('rGoedgekeurd').checked
+    });
+
+    e.target.reset();
+    document.getElementById('rDatum').value = new Date().toISOString().split('T')[0];
+    document.getElementById('rGoedgekeurd').checked = true;
+    laadLijst();
+    toonToast('Review toegevoegd!');
+  });
+
+  // ---- Bewerken ----
+  function bewerkReview(id) {
+    const r = Reviews.getReviews().find(x => x.id === id);
+    if (!r) return;
+    document.getElementById('eId').value = r.id;
+    document.getElementById('eNaam').value = r.naam;
+    document.getElementById('eFunctie').value = r.functie || '';
+    document.getElementById('eBedrijf').value = r.bedrijf;
+    document.getElementById('eSector').value = r.sector;
+    document.getElementById('eSterren').value = r.sterren;
+    document.getElementById('eDatum').value = r.datum;
+    document.getElementById('eTekst').value = r.tekst;
+    document.getElementById('eGoedgekeurd').checked = r.goedgekeurd;
+    const panel = document.getElementById('editPanel');
+    panel.classList.add('open');
+    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function sluitBewerken() {
+    document.getElementById('editPanel').classList.remove('open');
+    document.getElementById('bewerkForm').reset();
+  }
+
+  document.getElementById('bewerkForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const id = document.getElementById('eId').value;
+    Reviews.updateReview(id, {
+      naam: document.getElementById('eNaam').value.trim(),
+      functie: document.getElementById('eFunctie').value.trim(),
+      bedrijf: document.getElementById('eBedrijf').value.trim(),
+      sector: document.getElementById('eSector').value,
+      sterren: parseInt(document.getElementById('eSterren').value),
+      datum: document.getElementById('eDatum').value,
+      tekst: document.getElementById('eTekst').value.trim(),
+      goedgekeurd: document.getElementById('eGoedgekeurd').checked
+    });
+    sluitBewerken();
+    laadLijst();
+    toonToast('Review bijgewerkt!');
+  });
+
+  // ---- Toggles / verwijder ----
+  function wisselGoedkeuring(id) {
+    Reviews.toggleGoedkeuring(id);
+    laadLijst();
+    toonToast('Status bijgewerkt.');
+  }
+
+  function verwijderReview(id) {
+    if (!confirm('Deze review definitief verwijderen?')) return;
+    Reviews.deleteReview(id);
+    laadLijst();
+    toonToast('Review verwijderd.', 'error');
+  }
+
+  // ---- Import ----
+  document.getElementById('importBestand').addEventListener('change', (e) => {
+    const bestand = e.target.files[0];
+    if (!bestand) return;
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      try {
+        const aantal = Reviews.importReviews(evt.target.result);
+        laadLijst();
+        toonToast(`${aantal} reviews geimporteerd!`);
+      } catch {
+        toonToast('Import mislukt: ongeldig bestand.', 'error');
+      }
+    };
+    reader.readAsText(bestand);
+    e.target.value = '';
+  });
+</script>
+</body>
+</html>
