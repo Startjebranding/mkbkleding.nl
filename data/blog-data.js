@@ -1,0 +1,8 @@
+/* blog-data.js — bewerk via beheer.html. Dit is de lijst met blogkaarten op blog.html. */
+window.MKB_BLOG = [
+  { id: "b1", titel: "Bedrijfskleding laten bedrukken: wat kost het in 2025?", href: "blog/bedrijfskleding-kosten-2025.html", tag: "Prijzen & budgettering", datum: "15 jan 2026", leestijd: "5 min", samenvatting: "Van t-shirts tot polo's: wat zijn de gemiddelde prijzen en welke factoren bepalen de kosten van bedrukte kleding?" },
+  { id: "b2", titel: "Zeefdruk, borduurwerk of transferprint: wat past bij jouw kleding?", href: "blog/zeefdruk-borduurwerk-transferprint.html", tag: "Tips & advies", datum: "2 feb 2026", leestijd: "4 min", samenvatting: "Drie manieren om jouw logo op kleding te zetten. Elk met eigen voor- en nadelen, afhankelijk van aantallen en ontwerp." },
+  { id: "b3", titel: "Waarom herkenbare werkkleding loont voor MKB-bedrijven", href: "blog/werkkleding-mkb.html", tag: "Strategie", datum: "18 feb 2026", leestijd: "5 min", samenvatting: "Uniforme kleding is meer dan huisstijl. Het versterkt je uitstraling, verbetert teamgevoel en werkt als lopende reclame." },
+  { id: "b4", titel: "Bedrijfskleding voor een klein team: ook zonder minimale afname", href: "blog/kleine-teams-geen-minimale-afname.html", tag: "MKB tips", datum: "5 mrt 2026", leestijd: "4 min", samenvatting: "De meeste leveranciers hanteren minimale aantallen van 50 of 100 stuks. Hoe werkt het als je maar 1 of een paar stuks nodig hebt?" },
+  { id: "b5", titel: "Sportkleding voor je vereniging bestellen: zo werkt het", href: "blog/sportkleding-vereniging.html", tag: "Sport & clubs", datum: "22 mrt 2026", leestijd: "4 min", samenvatting: "Van clubkleuren tot sponsorlogo's: alles wat je moet weten voordat je teamkleding bestelt voor jouw sportvereniging." }
+];
