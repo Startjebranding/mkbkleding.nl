@@ -33,12 +33,6 @@
  *
  * Komt er een nieuw blogartikel bij? Zet de URL hier neer en de knop werkt.
  *
- * ---------------------------------------------------------------------------
- * 'let_op' — eerlijk zijn over waar iets NIET voor is
- * ---------------------------------------------------------------------------
- * Eén korte zin die vertelt wanneer dit product juist geen goede keuze is.
- * Dat voorkomt teleurstelling achteraf en scheelt jullie retouren en gedoe.
- * Leeg laten mag; dan valt de regel gewoon weg.
  */
 if (!defined('ABSPATH')) exit;
 
@@ -57,13 +51,12 @@ function mkb_producten() {
             'foto_alt' => 'Bedrijfs-T-shirts met bedrukt logo',
             'tekst'    => 'De klassieker. Verkrijgbaar in alle kleuren en maten, van eenvoudige basics tot premium kwaliteit. Snel te produceren en betaalbaar, ook voor kleinere aantallen.',
             'geschikt' => array(
-                array('label' => 'Kleine teams vanaf 1 stuk', 'url' => '/blog/kleine-teams-geen-minimale-afname/'),
-                array('label' => 'Horeca en bezorging',       'url' => '/bedrijfskleding-horeca/'),
-                array('label' => 'Sportclubs en verenigingen','url' => '/clubkleding-verenigingen/'),
-                array('label' => 'Merchandise en eigen merk', 'url' => '/eigen-kledingmerk-laten-maken/'),
-                array('label' => 'Grotere aantallen',         'url' => '/blog/prijs-bedrukte-bedrijfskleding/'),
+                array('label' => 'Kleine teams', 'url' => '/blog/kleine-teams-geen-minimale-afname/'),
+                array('label' => 'Bedrijven',    'url' => '/bedrijfskleding-bedrijven/'),
+                array('label' => 'Horeca',       'url' => '/bedrijfskleding-horeca/'),
+                array('label' => 'Sportclubs',   'url' => '/clubkleding-verenigingen/'),
+                array('label' => 'Merchandise',  'url' => '/eigen-kledingmerk-laten-maken/'),
             ),
-            'let_op'   => 'Een T-shirt is dun en rekt uit bij zwaar of vies werk. Voor de bouw, techniek en buitendienst adviseren we een polo, werkbroek of jas.',
             'opdruk_label' => 'Opdruk',
             'opdruk'   => 'zeefdruk, borduurwerk, transferprint',
         ),
@@ -77,13 +70,12 @@ function mkb_producten() {
             'foto_alt' => 'Bedrijfspolo\'s en overhemden met geborduurd logo',
             'tekst'    => 'Voor een professionele, representatieve uitstraling. Veelzijdig inzetbaar, van horeca en retail tot kantoor en buitendienst.',
             'geschikt' => array(
-                array('label' => 'Horeca en gastvrijheid',      'url' => '/bedrijfskleding-horeca/'),
-                array('label' => 'Kantoor en MKB',              'url' => '/bedrijfskleding-kantoor/'),
-                array('label' => 'Retail, showroom en buitendienst', 'url' => '/bedrijfskleding-bedrijven/'),
-                array('label' => 'Een logo dat de was overleeft', 'url' => '/blog/opdruktechniek-kiezen/'),
-                array('label' => 'Later losse stuks bijbestellen', 'url' => '/blog/kleine-teams-geen-minimale-afname/'),
+                array('label' => 'Horeca',            'url' => '/bedrijfskleding-horeca/'),
+                array('label' => 'Kantoor & MKB', 'url' => '/bedrijfskleding-kantoor/'),
+                array('label' => 'Retail',            'url' => '/bedrijfskleding-bedrijven/'),
+                array('label' => 'Kleine teams',      'url' => '/blog/kleine-teams-geen-minimale-afname/'),
+                array('label' => 'Clubbestuur',       'url' => '/clubkleding-verenigingen/'),
             ),
-            'let_op'   => 'Puur katoen krimpt licht bij hoge wastemperaturen. Gaat de kleding vaak en heet door de was, kies dan een katoen-polyestermix.',
             'opdruk_label' => 'Opdruk',
             'opdruk'   => 'borduurwerk, zeefdruk',
         ),
@@ -97,13 +89,12 @@ function mkb_producten() {
             'foto_alt' => 'Hoodies en sweaters met bedrijfslogo',
             'tekst'    => 'Van basic modellen tot premium hoodies en crewnecks. Ideaal voor teamkleding, merchandise of als geschenk voor medewerkers en klanten.',
             'geschikt' => array(
-                array('label' => 'Teambeleving in het MKB',       'url' => '/bedrijfskleding-kantoor/'),
-                array('label' => 'Merchandise en eigen merk',     'url' => '/eigen-kledingmerk-laten-maken/'),
-                array('label' => 'Clubs, jubilea en supporters',  'url' => '/blog/clubkleding-jubileumkleding/'),
-                array('label' => 'Wat kost een bedrukte hoodie',  'url' => '/blog/prijs-bedrukte-bedrijfskleding/'),
-                array('label' => 'Statiegeld terug bij inleveren','url' => '/statiegeld/'),
+                array('label' => 'Teamkleding',       'url' => '/bedrijfskleding-kantoor/'),
+                array('label' => 'Merchandise',       'url' => '/eigen-kledingmerk-laten-maken/'),
+                array('label' => 'Sportclubs',        'url' => '/clubkleding-verenigingen/'),
+                array('label' => 'Jubilea',           'url' => '/blog/clubkleding-jubileumkleding/'),
+                array('label' => 'Eigen kledingmerk', 'url' => '/blog/eigen-kledingmerk-starten/'),
             ),
-            'let_op'   => 'Een hoodie is warm en de capuchon zit in de weg bij machines. Werk je binnen of met apparatuur, dan is een crewneck-sweater praktischer.',
             'opdruk_label' => 'Opdruk',
             'opdruk'   => 'zeefdruk, transferprint, borduurwerk',
         ),
@@ -117,13 +108,12 @@ function mkb_producten() {
             'foto_alt' => 'Eigen kledingmerk met eigen was- en merklabels',
             'tekst'    => 'Private label vanaf de stof: wij snijden, naaien, bedrukken en werken af met je eigen labels. Van eerste sample tot een complete collectie &mdash; jouw merk, onze productie.',
             'geschikt' => array(
-                array('label' => 'Een merk starten',              'url' => '/blog/eigen-kledingmerk-starten/'),
-                array('label' => 'Private label en cut-and-sew',  'url' => '/eigen-kledingmerk-laten-maken/'),
-                array('label' => 'Streetwear en fashion',         'url' => '/portfolio/'),
-                array('label' => 'Eerst één sample laten maken',  'url' => '/blog/kleine-teams-geen-minimale-afname/'),
-                array('label' => 'Kostenopbouw per stuk',         'url' => '/blog/prijs-bedrukte-bedrijfskleding/'),
+                array('label' => 'Startende merken',     'url' => '/blog/eigen-kledingmerk-starten/'),
+                array('label' => 'Private label',        'url' => '/eigen-kledingmerk-laten-maken/'),
+                array('label' => 'Streetwear',           'url' => '/portfolio/'),
+                array('label' => 'Clubs met eigen lijn', 'url' => '/clubkleding-verenigingen/'),
+                array('label' => 'Bedrijfsmerchandise',  'url' => '/bedrijfskleding-bedrijven/'),
             ),
-            'let_op'   => 'Vanaf de stof produceren kost meer tijd dan bedrukken van bestaande kleding, en loont pas vanaf grotere aantallen. Wil je snel een klein aantal? Kies dan bedrukte basics.',
             'opdruk_label' => 'Techniek',
             'opdruk'   => 'cut-and-sew, eigen was- en merklabels, alle opdruktechnieken',
         ),
@@ -137,13 +127,11 @@ function mkb_producten() {
             'foto_alt' => 'Jubileumkleding met clubkleuren, jaartal en logo',
             'tekst'    => 'Limited-edition hoodies en shirts voor jubilea. 25, 50 of 100 jaar: wij maken er iets unieks van met clubkleuren, jaartal en logo. Voor sportclubs, verenigingen en bedrijven.',
             'geschikt' => array(
-                array('label' => 'Sportclubs en verenigingen',   'url' => '/clubkleding-verenigingen/'),
-                array('label' => 'Jubilea en mijlpalen',         'url' => '/blog/clubkleding-jubileumkleding/'),
-                array('label' => 'Bedrijfsfeesten en personeel', 'url' => '/bedrijfskleding-bedrijven/'),
-                array('label' => 'Namen en nummers per stuk',    'url' => '/blog/opdruktechniek-kiezen/'),
-                array('label' => 'Eerder gemaakt werk bekijken', 'url' => '/portfolio/'),
+                array('label' => 'Sportclubs',            'url' => '/clubkleding-verenigingen/'),
+                array('label' => 'Verenigingen',          'url' => '/blog/clubkleding-jubileumkleding/'),
+                array('label' => 'Bedrijfsjubilea',       'url' => '/bedrijfskleding-bedrijven/'),
+                array('label' => 'Personeel & teams', 'url' => '/bedrijfskleding-kantoor/'),
             ),
-            'let_op'   => 'Een jubileumontwerp kost extra tijd aan afstemming. Reken vanaf de eerste schets op zes tot acht weken, dus begin op tijd.',
             'opdruk_label' => 'Opdruk',
             'opdruk'   => 'zeefdruk, borduurwerk, sublimatie',
         ),

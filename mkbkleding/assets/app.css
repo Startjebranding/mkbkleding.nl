@@ -2859,31 +2859,6 @@ footer .logo-img {
   color: #fff;
 }
 
-/* Eerlijke kanttekening per product */
-.dienst-letop {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  background: var(--bg-soft);
-  border-left: 3px solid var(--slate-400);
-  border-radius: 0 8px 8px 0;
-  padding: 10px 14px;
-  margin-bottom: 14px;
-  font-size: 0.85rem;
-  color: var(--slate-600);
-  line-height: 1.55;
-}
-
-.dienst-letop i {
-  color: var(--slate-400);
-  margin-top: 3px;
-  flex-shrink: 0;
-}
-
-.dienst-letop strong {
-  color: var(--slate-900);
-}
-
 /* Productfoto (valt terug op het icoon zolang er geen foto is) */
 .dienst-foto {
   margin: -30px -26px 20px;

@@ -41,13 +41,6 @@
           <?php endforeach; ?>
         </ul>
 
-        <?php if (!empty($prod['let_op'])) : ?>
-          <p class="dienst-letop">
-            <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
-            <span><strong>Let op:</strong> <?php echo esc_html($prod['let_op']); ?></span>
-          </p>
-        <?php endif; ?>
-
         <p class="dienst-opdruk"><strong><?php echo esc_html($prod['opdruk_label']); ?>:</strong> <?php echo esc_html($prod['opdruk']); ?></p>
 
         <div class="dienst-acties">
