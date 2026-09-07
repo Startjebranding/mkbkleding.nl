@@ -4,6 +4,7 @@ if (!defined('ABSPATH')) exit;
 /* Files-only data */
 require_once get_template_directory() . '/data/articles.php';
 require_once get_template_directory() . '/data/sectors.php';
+require_once get_template_directory() . '/data/producten.php';
 /* Centrale SEO-head-laag (title, meta, canonical, OG/Twitter, JSON-LD) */
 require_once get_template_directory() . '/inc/seo.php';
 /* Virtuele pagina's (sectorpagina's + blog-permalinks) + sitemap + redirects */

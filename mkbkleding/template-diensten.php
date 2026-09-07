@@ -17,85 +17,45 @@
     <h2 class="section-title">Ons volledige aanbod</h2>
     <p class="section-intro">Kies het product dat bij jouw bedrijf past. Twijfel je? Vraag een vrijblijvende offerte aan en wij denken mee.</p>
     <div class="diensten-grid diensten-grid-groot">
-      <div class="dienst-card">
-        <div class="dienst-icon">
-          <i class="fa-solid fa-shirt" aria-hidden="true"></i>
-        </div>
-        <h3>Bedrijfs-T-shirts</h3>
-        <p>De klassieker. Verkrijgbaar in alle kleuren en maten, van eenvoudige basics tot premium kwaliteit. Snel te produceren en betaalbaar, ook voor kleinere aantallen.</p>
-        <p class="dienst-label">Geschikt voor:</p>
-        <ul class="dienst-tags">
-          <li>Teams</li>
-          <li>Evenementen</li>
-          <li>MKB</li>
-        </ul>
-        <p class="dienst-opdruk"><strong>Opdruk:</strong> zeefdruk, borduurwerk, transferprint</p>
-        <a href="/offerte/" class="btn btn-primary btn-small">Vraag offerte aan</a>
-      </div>
+      <?php foreach (mkb_producten() as $prod) : ?>
+      <div class="dienst-card" id="<?php echo esc_attr($prod['slug']); ?>">
 
-      <div class="dienst-card">
-        <div class="dienst-icon">
-          <i class="fa-solid fa-vest-patches" aria-hidden="true"></i>
-        </div>
-        <h3>Hoodies &amp; sweaters</h3>
-        <p>Van basic modellen tot premium hoodies en crewnecks. Ideaal voor teamkleding, merchandise of als geschenk voor medewerkers en klanten.</p>
-        <p class="dienst-label">Geschikt voor:</p>
-        <ul class="dienst-tags">
-          <li>Teambeleving</li>
-          <li>Merchandise</li>
-          <li>Evenementen</li>
-        </ul>
-        <p class="dienst-opdruk"><strong>Opdruk:</strong> zeefdruk, transferprint, borduurwerk</p>
-        <a href="/offerte/" class="btn btn-primary btn-small">Vraag offerte aan</a>
-      </div>
+        <?php if (!empty($prod['foto'])) : ?>
+          <div class="dienst-foto">
+            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/producten/' . $prod['foto']); ?>"
+                 alt="<?php echo esc_attr($prod['foto_alt']); ?>" loading="lazy" width="600" height="400">
+          </div>
+        <?php else : ?>
+          <div class="dienst-icon">
+            <i class="<?php echo esc_attr($prod['icoon']); ?>" aria-hidden="true"></i>
+          </div>
+        <?php endif; ?>
 
-      <div class="dienst-card">
-        <div class="dienst-icon">
-          <i class="fa-solid fa-user-tie" aria-hidden="true"></i>
-        </div>
-        <h3>Polo's &amp; overhemden</h3>
-        <p>Voor een professionele, representatieve uitstraling. Veelzijdig inzetbaar, van horeca en retail tot kantoor en buitendienst.</p>
-        <p class="dienst-label">Geschikt voor:</p>
-        <ul class="dienst-tags">
-          <li>Horeca</li>
-          <li>Retail</li>
-          <li>Kantoor</li>
-        </ul>
-        <p class="dienst-opdruk"><strong>Opdruk:</strong> borduurwerk, zeefdruk</p>
-        <a href="/offerte/" class="btn btn-primary btn-small">Vraag offerte aan</a>
-      </div>
+        <h3><?php echo wp_kses_post($prod['naam']); ?></h3>
+        <p><?php echo wp_kses_post($prod['tekst']); ?></p>
 
-      <div class="dienst-card">
-        <div class="dienst-icon">
-          <i class="fa-solid fa-tags" aria-hidden="true"></i>
-        </div>
-        <h3>Je eigen kledingmerk</h3>
-        <p>Private label vanaf de stof: wij snijden, naaien, bedrukken en werken af met je eigen labels. Van eerste sample tot een complete collectie &mdash; jouw merk, onze productie.</p>
-        <p class="dienst-label">Geschikt voor:</p>
-        <ul class="dienst-tags">
-          <li>Kledingmerken</li>
-          <li>Streetwear</li>
-          <li>Fashion-startups</li>
+        <p class="dienst-label" id="geschikt-<?php echo esc_attr($prod['slug']); ?>">Geschikt voor:</p>
+        <ul class="dienst-tags" aria-labelledby="geschikt-<?php echo esc_attr($prod['slug']); ?>">
+          <?php foreach ($prod['geschikt'] as $g) : ?>
+            <li><a href="<?php echo esc_url(home_url($g['url'])); ?>"><?php echo esc_html($g['label']); ?></a></li>
+          <?php endforeach; ?>
         </ul>
-        <p class="dienst-opdruk"><strong>Techniek:</strong> cut-and-sew, eigen was- en merklabels, alle opdruktechnieken</p>
-        <a href="/offerte/" class="btn btn-primary btn-small">Vraag offerte aan</a>
-      </div>
 
-      <div class="dienst-card">
-        <div class="dienst-icon">
-          <i class="fa-solid fa-medal" aria-hidden="true"></i>
+        <?php if (!empty($prod['let_op'])) : ?>
+          <p class="dienst-letop">
+            <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+            <span><strong>Let op:</strong> <?php echo esc_html($prod['let_op']); ?></span>
+          </p>
+        <?php endif; ?>
+
+        <p class="dienst-opdruk"><strong><?php echo esc_html($prod['opdruk_label']); ?>:</strong> <?php echo esc_html($prod['opdruk']); ?></p>
+
+        <div class="dienst-acties">
+          <a href="<?php echo esc_url(home_url('/offerte/')); ?>" class="btn btn-primary btn-small">Vraag offerte aan</a>
+          <a href="tel:+31687515929" class="dienst-bel"><i class="fa-solid fa-phone" aria-hidden="true"></i> Of bel 06 87 51 59 29</a>
         </div>
-        <h3>Jubileumkleding</h3>
-        <p>Limited-edition hoodies en shirts voor jubilea. 25, 50 of 100 jaar: wij maken er iets unieks van met clubkleuren, jaartal en logo. Voor sportclubs, verenigingen en bedrijven.</p>
-        <p class="dienst-label">Geschikt voor:</p>
-        <ul class="dienst-tags">
-          <li>Sportclubs</li>
-          <li>Verenigingen</li>
-          <li>Bedrijven</li>
-        </ul>
-        <p class="dienst-opdruk"><strong>Opdruk:</strong> zeefdruk, borduurwerk, sublimatie</p>
-        <a href="/offerte/" class="btn btn-primary btn-small">Vraag offerte aan</a>
       </div>
+      <?php endforeach; ?>
 
     </div>
   </div>
@@ -148,7 +108,10 @@
         <h3>Sportclubs &amp; verenigingen</h3>
         <p>Teamkleding in de clubkleuren, kleding voor bestuur en vrijwilligers en limited-edition jubileumhoodies. Ook in kleine aantallen, met ruimte voor meerdere sponsorlogo&rsquo;s.</p>
         <p class="dienst-opdruk"><strong>Populair:</strong> teamhoodies, trainingskleding, jubileumshirts</p>
-        <a href="/offerte/" class="btn btn-primary btn-small">Vraag offerte aan</a>
+        <div class="dienst-acties">
+          <a href="<?php echo esc_url(home_url('/offerte/')); ?>" class="btn btn-primary btn-small">Vraag offerte aan</a>
+          <a href="<?php echo esc_url(home_url('/clubkleding-verenigingen/')); ?>" class="dienst-meer">Meer over clubkleding <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
       </div>
 
       <div class="dienst-card" id="sector-kledingmerken">
@@ -156,7 +119,10 @@
         <h3>Eigen kledingmerken</h3>
         <p>Private label vanaf de stof: snijden, naaien en afwerken met je eigen was- en merklabels. Van eerste sample tot complete collectie — klein beginnen kan, zonder grote minimale afname.</p>
         <p class="dienst-opdruk"><strong>Populair:</strong> heavyweight hoodies, streetwear-tees, eigen labels</p>
-        <a href="/offerte/" class="btn btn-primary btn-small">Vraag offerte aan</a>
+        <div class="dienst-acties">
+          <a href="<?php echo esc_url(home_url('/offerte/')); ?>" class="btn btn-primary btn-small">Vraag offerte aan</a>
+          <a href="<?php echo esc_url(home_url('/eigen-kledingmerk-laten-maken/')); ?>" class="dienst-meer">Meer over eigen merk <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
       </div>
 
       <div class="dienst-card" id="sector-fitness">
@@ -164,7 +130,10 @@
         <h3>Fitness &amp; gyms</h3>
         <p>Een sportieve, herkenbare look voor je team en je leden. Van trainerskleding tot merchandise die je leden met trots dragen, met je logo strak op de borst of rug.</p>
         <p class="dienst-opdruk"><strong>Populair:</strong> sportshirts, hoodies, tanktops</p>
-        <a href="/offerte/" class="btn btn-primary btn-small">Vraag offerte aan</a>
+        <div class="dienst-acties">
+          <a href="<?php echo esc_url(home_url('/offerte/')); ?>" class="btn btn-primary btn-small">Vraag offerte aan</a>
+          <a href="<?php echo esc_url(home_url('/bedrijfskleding-bedrijven/')); ?>" class="dienst-meer">Meer over bedrijfskleding <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
       </div>
 
       <div class="dienst-card" id="sector-horeca">
@@ -172,7 +141,10 @@
         <h3>Horeca</h3>
         <p>Kleding die past bij de uitstraling van je zaak en tegen een stootje kan. Van strakke polo&rsquo;s en overhemden tot t-shirts, met je logo netjes geborduurd of gedrukt.</p>
         <p class="dienst-opdruk"><strong>Populair:</strong> polo&rsquo;s, overhemden, schorten met logo</p>
-        <a href="/offerte/" class="btn btn-primary btn-small">Vraag offerte aan</a>
+        <div class="dienst-acties">
+          <a href="<?php echo esc_url(home_url('/offerte/')); ?>" class="btn btn-primary btn-small">Vraag offerte aan</a>
+          <a href="<?php echo esc_url(home_url('/bedrijfskleding-horeca/')); ?>" class="dienst-meer">Meer over horecakleding <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
       </div>
 
       <div class="dienst-card" id="sector-retail">
@@ -180,7 +152,10 @@
         <h3>Retail</h3>
         <p>Eén team, één gezicht op de winkelvloer. Herkenbare kleding waardoor klanten direct zien wie er werkt — representatief en in lijn met je huisstijl.</p>
         <p class="dienst-opdruk"><strong>Populair:</strong> polo&rsquo;s, t-shirts, sweaters</p>
-        <a href="/offerte/" class="btn btn-primary btn-small">Vraag offerte aan</a>
+        <div class="dienst-acties">
+          <a href="<?php echo esc_url(home_url('/offerte/')); ?>" class="btn btn-primary btn-small">Vraag offerte aan</a>
+          <a href="<?php echo esc_url(home_url('/bedrijfskleding-bedrijven/')); ?>" class="dienst-meer">Meer over bedrijfskleding <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
       </div>
 
       <div class="dienst-card" id="sector-kantoor">
@@ -188,7 +163,10 @@
         <h3>MKB &amp; kantoor</h3>
         <p>Professioneel voor de dag komen bij klantbezoek, een beurs of op kantoor. Verzorgde kleding met je logo, ook voor kleine teams en zzp&rsquo;ers — al vanaf 1 stuk.</p>
         <p class="dienst-opdruk"><strong>Populair:</strong> overhemden, polo&rsquo;s, bodywarmers</p>
-        <a href="/offerte/" class="btn btn-primary btn-small">Vraag offerte aan</a>
+        <div class="dienst-acties">
+          <a href="<?php echo esc_url(home_url('/offerte/')); ?>" class="btn btn-primary btn-small">Vraag offerte aan</a>
+          <a href="<?php echo esc_url(home_url('/bedrijfskleding-kantoor/')); ?>" class="dienst-meer">Meer over kantoorkleding <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
       </div>
 
     </div>

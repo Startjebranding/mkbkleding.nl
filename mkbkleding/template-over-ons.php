@@ -40,6 +40,11 @@
         <p class="team-naam">Taha</p>
         <p class="team-rol">Sourcing, Sales &amp; Strategie</p>
         <p>Taha is verantwoordelijk voor de leveranciersrelaties, commercie en strategie. Hij zorgt dat de kwaliteit klopt en de prijs eerlijk is.</p>
+        <p class="team-benader"><strong>Benader Taha voor:</strong> prijzen, grotere aantallen, een eigen kledingmerk en alles wat met een nieuwe bestelling te maken heeft.</p>
+        <div class="team-acties">
+          <a href="tel:+31687515929" class="btn btn-primary btn-small"><i class="fa-solid fa-phone" aria-hidden="true"></i> 06 87 51 59 29</a>
+          <a href="mailto:info@mkbkleding.nl" class="dienst-meer">Mail ons <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
       </div>
 
       <div class="team-lid">
@@ -47,8 +52,51 @@
         <p class="team-naam">Boika</p>
         <p class="team-rol">Techniek &amp; Klantbeheer</p>
         <p>Boika is het aanspreekpunt voor lopende orders en klantvragen. Verantwoordelijk voor de technische kant en de dagelijkse operatie.</p>
+        <p class="team-benader"><strong>Benader Boika voor:</strong> een lopende bestelling, je ontwerp, maten en levering.</p>
+        <div class="team-acties">
+          <a href="tel:+31687515929" class="btn btn-primary btn-small"><i class="fa-solid fa-phone" aria-hidden="true"></i> 06 87 51 59 29</a>
+          <a href="mailto:info@mkbkleding.nl" class="dienst-meer">Mail ons <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<section class="section" id="bestellen">
+  <div class="container">
+    <div class="seam"></div>
+    <h2 class="section-title">Zo plaats je een bestelling</h2>
+    <p class="section-intro">Je hoeft geen account aan te maken en niets vooraf te betalen. Eén bericht is genoeg &mdash; wij pakken het daarna op.</p>
+
+    <div class="stappen stappen-3-licht">
+      <div class="stap-licht">
+        <span class="stap-bol">1</span>
+        <div>
+          <h3>Laat weten wat je zoekt</h3>
+          <p>Bel, mail of vul het offerteformulier in. Weet je nog niet precies wat je nodig hebt? Dan denken we gewoon met je mee.</p>
+        </div>
+      </div>
+      <div class="stap-licht">
+        <span class="stap-bol">2</span>
+        <div>
+          <h3>Je krijgt een voorstel en een ontwerp</h3>
+          <p>Binnen 1 werkdag hoor je van ons, inclusief prijs. Je ziet het ontwerp voordat er iets geproduceerd wordt.</p>
+        </div>
+      </div>
+      <div class="stap-licht">
+        <span class="stap-bol">3</span>
+        <div>
+          <h3>Jij geeft akkoord, wij regelen de rest</h3>
+          <p>Pas na jouw goedkeuring gaan we produceren. Daarna leveren we bij je af.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bestel-acties">
+      <a href="<?php echo esc_url(home_url('/offerte/')); ?>" class="btn btn-primary">Offerte of bestelling aanvragen</a>
+      <a href="tel:+31687515929" class="btn btn-secondary"><i class="fa-solid fa-phone" aria-hidden="true"></i> 06 87 51 59 29</a>
+      <a href="mailto:info@mkbkleding.nl" class="btn btn-secondary"><i class="fa-solid fa-envelope" aria-hidden="true"></i> info@mkbkleding.nl</a>
     </div>
   </div>
 </section>
@@ -114,9 +162,12 @@
 
 <section class="section section-dark" id="cta">
   <div class="container cta-container">
-    <h2>Wil je samenwerken?</h2>
-    <p>Neem contact op of vraag direct een vrijblijvende offerte aan. Wij reageren binnen één werkdag.</p>
-    <a href="/offerte/" class="btn btn-primary">Offerte aanvragen</a>
+    <h2>Klaar om te bestellen?</h2>
+    <p>Vraag een offerte aan, of bel ons als je het liever even doorspreekt. Wij reageren binnen één werkdag.</p>
+    <div class="bestel-acties" style="justify-content:center">
+      <a href="<?php echo esc_url(home_url('/offerte/')); ?>" class="btn btn-primary">Offerte of bestelling aanvragen</a>
+      <a href="tel:+31687515929" class="btn btn-secondary" style="color:#fff"><i class="fa-solid fa-phone" aria-hidden="true"></i> 06 87 51 59 29</a>
+    </div>
   </div>
 </section>
 <?php get_footer(); ?>

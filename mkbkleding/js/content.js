@@ -39,9 +39,14 @@
   }
 
   /* ---------- PORTFOLIO ---------- */
-  function portfolioCard(p) {
+  function portfolioCard(p, index) {
     var inner = p.afbeelding
-      ? '<img src="' + esc(p.afbeelding) + '" alt="' + esc(p.label) + '" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:inherit">'
+      ? '<button type="button" class="portfolio-knop" data-lightbox="' + index + '" ' +
+          'aria-label="Bekijk groter: ' + esc(p.label) + '">' +
+          '<img src="' + esc(p.afbeelding) + '" alt="' + esc(p.label) + '" loading="lazy" ' +
+            'style="width:100%;height:100%;object-fit:cover;border-radius:inherit">' +
+          '<span class="portfolio-zoom" aria-hidden="true"><i class="fa-solid fa-expand"></i></span>' +
+        '</button>'
       : '<div class="portfolio-placeholder">' +
           '<i class="fa-regular fa-image" aria-hidden="true"></i>' +
           '<p>Foto komt binnenkort</p>' +
@@ -49,13 +54,108 @@
         '</div>';
     return '<div class="portfolio-item">' + inner + '</div>';
   }
+  /* De foto's die vergroot kunnen worden, in de volgorde waarin ze staan. */
+  var fotos = [];
+
   function renderPortfolio(containerId) {
     var el = document.getElementById(containerId);
     if (!el) return;
     var list = window.MKB_PORTFOLIO || [];
+
+    fotos = list.filter(function (p) { return !!p.afbeelding; });
+
     el.innerHTML = list.length
-      ? list.map(portfolioCard).join('')
+      ? list.map(function (p) {
+          var idx = p.afbeelding ? fotos.indexOf(p) : -1;
+          return portfolioCard(p, idx);
+        }).join('')
       : '<p class="reviews-leeg">Nog geen portfolio-items.</p>';
+
+    koppelLightbox(el);
+  }
+
+  /* ---------- FOTO VERGROTEN (lightbox) ---------- */
+  var lb, lbImg, lbBijschrift, lbTeller, lbVorige, lbVolgende, huidige = 0, vorigeFocus = null;
+
+  function maakLightbox() {
+    if (lb) return;
+
+    lb = document.createElement('div');
+    lb.className = 'lightbox';
+    lb.hidden = true;
+    lb.setAttribute('role', 'dialog');
+    lb.setAttribute('aria-modal', 'true');
+    lb.setAttribute('aria-label', 'Vergrote foto');
+    lb.innerHTML =
+      '<button type="button" class="lightbox-vorige" aria-label="Vorige foto"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>' +
+      '<figure class="lightbox-figuur"><img alt=""><figcaption></figcaption></figure>' +
+      '<button type="button" class="lightbox-volgende" aria-label="Volgende foto"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>' +
+      '<button type="button" class="lightbox-sluit" aria-label="Sluiten"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>' +
+      '<p class="lightbox-teller"></p>';
+    document.body.appendChild(lb);
+
+    lbImg        = lb.querySelector('img');
+    lbBijschrift = lb.querySelector('figcaption');
+    lbTeller     = lb.querySelector('.lightbox-teller');
+    lbVorige     = lb.querySelector('.lightbox-vorige');
+    lbVolgende   = lb.querySelector('.lightbox-volgende');
+
+    lb.querySelector('.lightbox-sluit').addEventListener('click', sluit);
+    lbVorige.addEventListener('click', function () { spring(-1); });
+    lbVolgende.addEventListener('click', function () { spring(1); });
+
+    // Klik naast de foto sluit de lightbox
+    lb.addEventListener('click', function (e) {
+      if (e.target === lb || e.target.classList.contains('lightbox-figuur')) sluit();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (lb.hidden) return;
+      if (e.key === 'Escape')     sluit();
+      if (e.key === 'ArrowLeft')  spring(-1);
+      if (e.key === 'ArrowRight') spring(1);
+    });
+  }
+
+  function toon(i) {
+    if (!fotos.length) return;
+    huidige = (i + fotos.length) % fotos.length;
+    var f = fotos[huidige];
+    lbImg.src = f.afbeelding;
+    lbImg.alt = f.label || '';
+    lbBijschrift.textContent = f.label || '';
+    lbTeller.textContent = (huidige + 1) + ' van ' + fotos.length;
+    var meer = fotos.length > 1;
+    lbVorige.hidden = !meer;
+    lbVolgende.hidden = !meer;
+  }
+
+  function spring(stap) { toon(huidige + stap); }
+
+  function open(i, knop) {
+    maakLightbox();
+    vorigeFocus = knop || null;
+    toon(i);
+    lb.hidden = false;
+    document.body.style.overflow = 'hidden';
+    lb.querySelector('.lightbox-sluit').focus();
+  }
+
+  function sluit() {
+    if (!lb || lb.hidden) return;
+    lb.hidden = true;
+    lbImg.src = '';
+    document.body.style.overflow = '';
+    if (vorigeFocus) vorigeFocus.focus();
+  }
+
+  function koppelLightbox(el) {
+    el.querySelectorAll('.portfolio-knop').forEach(function (knop) {
+      knop.addEventListener('click', function () {
+        var i = parseInt(knop.getAttribute('data-lightbox'), 10);
+        if (!isNaN(i) && i >= 0) open(i, knop);
+      });
+    });
   }
 
   /* ---------- BLOG ---------- */

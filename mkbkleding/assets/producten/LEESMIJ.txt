@@ -1,0 +1,16 @@
+Foto's van de producten op /diensten/.
+
+Zet hier je foto's neer en vul de bestandsnaam in bij 'foto' in
+data/producten.php. Bijvoorbeeld:
+
+    'foto' => 'bedrijfs-t-shirts.jpg'
+
+Verwachte namen (mag je zelf kiezen, als ze maar overeenkomen):
+    bedrijfs-t-shirts.jpg
+    polos-overhemden.jpg
+    hoodies-sweaters.jpg
+    eigen-kledingmerk.jpg
+    jubileumkleding.jpg
+
+Aanbevolen: liggend, ongeveer 1200 x 800 pixels, JPG, onder de 300 kB.
+Zolang 'foto' leeg is, toont de kaart gewoon het icoon. Er gaat niets stuk.
